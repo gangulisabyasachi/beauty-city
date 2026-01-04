@@ -11,20 +11,17 @@ interface Event {
 const events: Event[] = [
   { id: 'saraswati-puja-2025', name: 'SARASWATI PUJA 2025' },
   { id: 'saraswati-puja-2026', name: 'SARASWATI PUJA 2026' },
-  // Add more events here, e.g.:
-  // { id: 'holi-2025', name: 'HOLI 2025' },
+  // Add more events here later
 ];
 
 export default function Home() {
   const [selectedEvent, setSelectedEvent] = useState<string>('');
 
+  // For now, we'll assume up to 50 images per event named image1.jpg, image2.jpg, etc.
+  // You can adjust the number or replace with exact filenames later
+  const maxImages = 50;
   const images = selectedEvent
-    ? Array.from({ length: 20 }, (_, i) => `/events/${selectedEvent}/image${i + 1}.jpg`)
-        .filter((src) => {
-          // Simple client-side filter for existing images (optional fallback)
-          // In production, just list actual filenames or predefine per event
-          return true; // Replace with actual count or predefined array
-        })
+    ? Array.from({ length: maxImages }, (_, i) => `/events/${selectedEvent}/image${i + 1}.jpg`)
     : [];
 
   return (
@@ -53,7 +50,7 @@ export default function Home() {
           </select>
         </div>
 
-        {selectedEvent && images.length > 0 ? (
+        {selectedEvent && (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {images.map((src, index) => (
               <div
@@ -66,16 +63,27 @@ export default function Home() {
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  onError={(e) => {
+                    // Hide broken images (when file doesn't exist)
+                    (e.target as HTMLElement).style.display = 'none';
+                  }}
                 />
               </div>
             ))}
           </div>
-        ) : selectedEvent ? (
-          <p className="text-center text-xl text-gray-600">
-            No images yet for this event. Add photos to public/events/{selectedEvent}/
+        )}
+
+        {selectedEvent && images.length > 0 && (
+          <p className="text-center text-gray-500 mt-8">
+            Only images that exist in public/events/{selectedEvent}/ will be shown.
           </p>
-        ) : null}
+        )}
+
+        {!selectedEvent && (
+          <p className="text-center text-xl text-gray-600 mt-20">
+            Please select an event from the dropdown to view the gallery.
+          </p>
+        )}
       </main>
     );
-  }
 }
