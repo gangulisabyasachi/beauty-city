@@ -10,8 +10,11 @@ lightbox.innerHTML = '<img src="">';
 lightbox.onclick = () => lightbox.classList.remove('active');
 document.body.appendChild(lightbox);
 
-eventSelect.addEventListener('change', async function () {
-  const eventFolder = this.value;
+// List of common image extensions to try
+const extensions = ['jpg', 'jpeg', 'png', 'webp', 'gif', 'avif'];
+
+eventSelect.addEventListener('change', function () {
+  const eventFolder = this.value.trim();
 
   // Reset
   gallery.innerHTML = '';
@@ -23,40 +26,81 @@ eventSelect.addEventListener('change', async function () {
     return;
   }
 
-  // Try to load images from 1 to 100 (adjust if needed)
-  let imagesFound = false;
+  // We'll generate possible image names (common patterns people use)
+  const possibleNames = [
+    // Common camera patterns
+    'DSC_', 'IMG_', 'PXL_', 'MVIMG_', 'VID_', 
+    // Date-based
+    '202', // e.g., 20250123_123456
+    // Generic
+    'photo', 'image', 'pic', 'picture', 'snap', 'event'
+  ];
 
-  for (let i = 1; i <= 100; i++) {
-    const imgSrc = `events/${eventFolder}/photo${i}.jpg`; // change extension if needed (.png etc)
+  let imagesFound = 0;
+  const checked = new Set();
 
-    const img = new Image();
-    img.src = imgSrc;
+  // Try up to 200 possible combinations
+  for (let base of possibleNames) {
+    for (let num = 1; num <= 200; num++) {
+      for (let ext of extensions) {
+        let filename = `${base}${num.toString().padStart(4, '0')}.${ext.toLowerCase()}`;
+        let url = `events/${eventFolder}/${filename}`;
 
-    img.onload = () => {
-      imagesFound = true;
+        if (checked.has(url)) continue;
+        checked.add(url);
 
-      const galleryImg = document.createElement('img');
-      galleryImg.src = imgSrc;
-      galleryImg.alt = `Photo ${i}`;
+        const img = new Image();
+        img.src = url;
 
-      // Click to enlarge
-      galleryImg.onclick = (e) => {
-        e.stopPropagation();
-        lightbox.querySelector('img').src = imgSrc;
-        lightbox.classList.add('active');
-      };
-
-      gallery.appendChild(galleryImg);
-    };
-
-    // Wait a tiny bit to avoid too many simultaneous requests
-    await new Promise(resolve => setTimeout(resolve, 10));
+        img.onload = () => {
+          imagesFound++;
+          createGalleryImage(url);
+        };
+      }
+    }
   }
 
-  // After checking all, show message if no images
+  // Also try completely generic names like "1.jpg", "photo1.png", etc.
+  for (let i = 1; i <= 100; i++) {
+    for (let ext of extensions) {
+      let url1 = `events/${eventFolder}/${i}.${ext}`;
+      let url2 = `events/${eventFolder}/photo${i}.${ext}`;
+      let url3 = `events/${eventFolder}/image${i}.${ext}`;
+      let url4 = `events/${eventFolder}/pic${i}.${ext}`;
+
+      [url1, url2, url3, url4].forEach(url => {
+        if (checked.has(url)) return;
+        checked.add(url);
+
+        const img = new Image();
+        img.src = url;
+        img.onload = () => {
+          imagesFound++;
+          createGalleryImage(url);
+        };
+      });
+    }
+  }
+
+  // Fallback message after delay
   setTimeout(() => {
-    if (!imagesFound) {
+    if (imagesFound === 0) {
       noImagesMsg.classList.remove('hidden');
     }
-  }, 2000);
+  }, 3000);
 });
+
+function createGalleryImage(src) {
+  const galleryImg = document.createElement('img');
+  galleryImg.src = src;
+  galleryImg.alt = 'Event photo';
+  galleryImg.loading = 'lazy'; // Better performance
+
+  galleryImg.onclick = (e) => {
+    e.stopPropagation();
+    lightbox.querySelector('img').src = src;
+    lightbox.classList.add('active');
+  };
+
+  gallery.appendChild(galleryImg);
+}
