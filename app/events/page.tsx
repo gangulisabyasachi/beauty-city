@@ -97,7 +97,7 @@ export default function Events() {
       </section>
 
       {/* Info Section */}
-      <section className="py-20 bg-primary text-primary-foreground">
+      {/* <section className="py-20 bg-primary text-primary-foreground">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl font-bold mb-6">How to Add New Events</h2>
           <div className="grid md:grid-cols-2 gap-8">
@@ -121,7 +121,7 @@ export default function Events() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
     </main>
   )
 }
