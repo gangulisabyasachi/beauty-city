@@ -6,6 +6,7 @@
     "description": "Premium outdoor furniture for our community garden area",
     "purchaseDate": "2023-06-15",
     "purchasedFrom": "Garden Supplies Co.",
+    "amount": 1200,
     "category": "Outdoor"
   }
 ]

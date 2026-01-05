@@ -11,7 +11,9 @@ interface Asset {
   description: string
   purchaseDate: string
   purchasedFrom: string
+  amoiunt: number
   category: string
+
 }
 
 export default function Assets() {
@@ -98,6 +100,7 @@ export default function Assets() {
                   </div>
                   <h3 className="text-xl font-bold text-card-foreground mb-2">{asset.name}</h3>
                   <p className="text-card-foreground/80 mb-4">{asset.description}</p>
+                  <p className="text-card-foreground/80 mb-4">{asset.amount}</p>
                   <p className="text-sm text-card-foreground/60">
                     Purchased: {new Date(asset.purchaseDate).toLocaleDateString()}
                   </p>
