@@ -7,50 +7,5 @@
     "purchaseDate": "2023-06-15",
     "purchasedFrom": "Garden Supplies Co.",
     "category": "Outdoor"
-  },
-  {
-    "id": "2",
-    "name": "Recreation Room Ping Pong Table",
-    "image": "/ping-pong-table.jpg",
-    "description": "Professional grade ping pong table for recreational use",
-    "purchaseDate": "2023-08-20",
-    "purchasedFrom": "Sports Equipment Store",
-    "category": "Recreation"
-  },
-  {
-    "id": "3",
-    "name": "Community Center Projector",
-    "image": "/home-theater-projector.png",
-    "description": "4K projector for community events and movie nights",
-    "purchaseDate": "2023-10-10",
-    "purchasedFrom": "Electronics Plus",
-    "category": "Technology"
-  },
-  {
-    "id": "4",
-    "name": "Fitness Equipment Bundle",
-    "image": "/gym-fitness-equipment.jpg",
-    "description": "Complete gym equipment for our fitness center",
-    "purchaseDate": "2023-12-05",
-    "purchasedFrom": "Fitness World",
-    "category": "Fitness"
-  },
-  {
-    "id": "5",
-    "name": "Library Book Collection",
-    "image": "/books-library.jpg",
-    "description": "Curated collection of books for community library",
-    "purchaseDate": "2024-01-15",
-    "purchasedFrom": "Book Store International",
-    "category": "Library"
-  },
-  {
-    "id": "6",
-    "name": "Playground Equipment",
-    "image": "/children-playground-slide.jpg",
-    "description": "Safe and fun playground equipment for kids",
-    "purchaseDate": "2024-02-20",
-    "purchasedFrom": "Play Structures Inc.",
-    "category": "Outdoor"
   }
 ]
