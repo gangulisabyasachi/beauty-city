@@ -138,7 +138,7 @@ export default function Assets() {
                 </div>
                 <div>
                   <h4 className="font-semibold text-sm text-foreground/60 mb-1">Price</h4>
-                  <p className="text-lg text-foreground">Rs. {selectedAsset.amount}</p>
+                  <p className="text-lg text-foreground">Rs. {selectedAsset.amount}/-</p>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
