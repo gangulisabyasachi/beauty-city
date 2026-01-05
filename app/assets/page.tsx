@@ -100,7 +100,7 @@ export default function Assets() {
                   </div>
                   <h3 className="text-xl font-bold text-card-foreground mb-2">{asset.name}</h3>
                   <p className="text-card-foreground/80 mb-4">{asset.description}</p>
-                  <p className="text-card-foreground/80 mb-4">{asset.amount}</p>
+                  {/* <p className="text-card-foreground/80 mb-4">{asset.amount}</p> */}
                   <p className="text-sm text-card-foreground/60">
                     Purchased: {new Date(asset.purchaseDate).toLocaleDateString()}
                   </p>
@@ -135,6 +135,10 @@ export default function Assets() {
                 <div>
                   <h4 className="font-semibold text-sm text-foreground/60 mb-1">Description</h4>
                   <p className="text-lg text-foreground">{selectedAsset.description}</p>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-sm text-foreground/60 mb-1">Price</h4>
+                  <p className="text-lg text-foreground">Rs. {selectedAsset.amount}</p>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
